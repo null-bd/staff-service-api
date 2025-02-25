@@ -1,4 +1,4 @@
-package domain
+package user
 
 import (
 	"testing"
@@ -10,7 +10,7 @@ import (
 type RepositoryTestSuite struct {
 	suite.Suite
 	tc   *testutil.TestContainer
-	repo IDomainRepository
+	repo IUserRepository
 }
 
 func TestRepositorySuite(t *testing.T) {

@@ -13,37 +13,37 @@ auth:
   cacheEnabled: true
   cacheUrl: "redis:6379"
   resources:
-  # Domain endpoints
-  - path: "/api/v1/domains"
+  # Staff endpoints
+  - path: "/api/v1/staff"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
-    actions: ["create:domain"]
+    actions: ["create:staff"]
 
-  - path: "/api/v1/domains"
+  - path: "/api/v1/staff"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:domain"]
+    actions: ["read:staff"]
 
-  - path: "/api/v1/domains/:id"
+  - path: "/api/v1/staff/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:domain"]
+    actions: ["read:staff"]
 
-  - path: "/api/v1/domains/:id"
+  - path: "/api/v1/staff/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
-    actions: ["update:domain"]
+    actions: ["update:staff"]
 
-  - path: "/api/v1/domains/:id"
+  - path: "/api/v1/staff/:id"
     method: "DELETE"
     roles: ["ADMIN"]
-    actions: ["delete:domain"]
+    actions: ["delete:staff"]
 
   publicPaths:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
-  - path: "/api/v1/domains"
+  - path: "/api/v1/staff"
     method: "POST"
   
 database:

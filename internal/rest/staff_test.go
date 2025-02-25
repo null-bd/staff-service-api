@@ -4,6 +4,6 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type mockDomSvc struct {
+type mockStaffSvc struct {
 	mock.Mock
 }

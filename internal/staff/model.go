@@ -1,6 +1,6 @@
-package domain
+package staff
 
-type Domain struct {
+type Staff struct {
 }
 
 type ContactInfo struct {

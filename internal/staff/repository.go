@@ -1,4 +1,4 @@
-package domain
+package staff
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -8,17 +8,17 @@ import (
 // region Definition
 
 type (
-	IDomainRepository interface {
+	IStaffRepository interface {
 	}
 
-	domainRepository struct {
+	staffRepository struct {
 		db  *pgxpool.Pool
 		log logger.Logger
 	}
 )
 
-func NewDomainRepository(db *pgxpool.Pool, logger logger.Logger) IDomainRepository {
-	return &domainRepository{
+func NewStaffRepository(db *pgxpool.Pool, logger logger.Logger) IStaffRepository {
+	return &staffRepository{
 		db:  db,
 		log: logger,
 	}

@@ -45,7 +45,7 @@ func getHTTPStatusFromErrorCode(code errors.ErrorCode) int {
 		return http.StatusServiceUnavailable
 	case errors.ErrBadRequest:
 		return http.StatusBadRequest
-	case errors.ErrDomNotFound:
+	case errors.ErrStaffNotFound:
 		return http.StatusNotFound
 	default:
 		return http.StatusInternalServerError

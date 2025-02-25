@@ -21,12 +21,12 @@ type Router struct {
 	config         *config.Config
 }
 
-func NewRouter(logger logger.Logger, cfg *config.Config, healthhandler *rest.IHealthHandler, domHandler *rest.IDomainHandler) (*Router, error) {
+func NewRouter(logger logger.Logger, cfg *config.Config, healthhandler *rest.IHealthHandler, staffHandler *rest.IStaffHandler, userHandler *rest.IUserHandler) (*Router, error) {
 	// Load auth config
 	authConfig := loadAuthConfig(cfg)
 
 	// Initialize permission callback
-	permCallback := func(domId, branchId, role string) []string {
+	permCallback := func(staffId, userId, role string) []string {
 		// Customize this based on your needs
 		return nil
 	}
@@ -57,7 +57,7 @@ func NewRouter(logger logger.Logger, cfg *config.Config, healthhandler *rest.IHe
 
 	// Setup routes
 	setupHealthRoutes(router, *healthhandler)
-	setupAPIRoutes(router, *domHandler, resourceMatcher)
+	setupAPIRoutes(router, *staffHandler, *userHandler, resourceMatcher)
 
 	return &Router{
 		engine:         router,
@@ -102,7 +102,7 @@ func (r *Router) Run() error {
 	return r.engine.Run(r.config.App.GetAddress())
 }
 
-func setupAPIRoutes(router *gin.Engine, domHandler rest.IDomainHandler, resourceMatcher *authn.ResourceMatcher) {
+func setupAPIRoutes(router *gin.Engine, staffHandler rest.IStaffHandler, userHandler rest.IUserHandler, resourceMatcher *authn.ResourceMatcher) {
 	//v1 := router.Group("/api/v1")
 	{
 		//domains := v1.Group("/domains")
