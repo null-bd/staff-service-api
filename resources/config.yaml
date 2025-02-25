@@ -39,13 +39,57 @@ auth:
     roles: ["ADMIN"]
     actions: ["delete:staff"]
 
+  # User endpoints
+  - path: "/api/v1/user"
+    method: "POST"
+    roles: ["ADMIN", "ORG_CREATOR"]
+    actions: ["create:user"]
+
+  - path: "/api/v1/user"
+    method: "GET"  
+    roles: ["ADMIN", "ORG_ADMIN", "USER"]
+    actions: ["read:user"]
+
+  - path: "/api/v1/user/:id"
+    method: "GET"
+    roles: ["ADMIN", "ORG_ADMIN", "USER"]
+    actions: ["read:user"]
+
+  - path: "/api/v1/user/:id"
+    method: "PUT"
+    roles: ["ADMIN", "ORG_ADMIN"] 
+    actions: ["update:user"]
+
+  - path: "/api/v1/user/:id"
+    method: "DELETE"
+    roles: ["ADMIN"]
+    actions: ["delete:user"]
+
   publicPaths:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
   - path: "/api/v1/staff"
     method: "POST"
-  
+  - path: "/api/v1/staff"
+    method: "GET"
+  - path: "/api/v1/staff/*"
+    method: "GET"
+  - path: "/api/v1/staff/*"
+    method: "PUT"
+  - path: "/api/v1/staff/:id"
+    method: "DELETE"
+  - path: "/api/v1/staff/:id/user"
+    method: "POST"
+  - path: "/api/v1/staff/:id/user"
+    method: "GET"
+  - path: "/api/v1/staff/:id/user/:userId"
+    method: "GET"
+  - path: "/api/v1/staff/:id/user/:userId"
+    method: "PUT"
+  - path: "/api/v1/staff/:id/user/:userId"
+    method: "DELETE"
+
 database:
   host: "127.0.0.1"
   port: 5432
