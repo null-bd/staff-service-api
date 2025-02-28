@@ -14,53 +14,53 @@ auth:
   cacheUrl: "redis:6379"
   resources:
   # Staff endpoints
-  - path: "/api/v1/member/staff"
+  - path: "/api/v1/account/staff"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
     actions: ["create:staff"]
 
-  - path: "/api/v1/member/staff"
+  - path: "/api/v1/account/staff"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:staff"]
 
-  - path: "/api/v1/member/staff/:id"
+  - path: "/api/v1/account/staff/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:staff"]
 
-  - path: "/api/v1/member/staff/:id"
+  - path: "/api/v1/account/staff/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
     actions: ["update:staff"]
 
-  - path: "/api/v1/member/staff/:id"
+  - path: "/api/v1/account/staff/:id"
     method: "DELETE"
     roles: ["ADMIN"]
     actions: ["delete:staff"]
 
   # User endpoints
-  - path: "/api/v1/member/user"
+  - path: "/api/v1/account/user"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
     actions: ["create:user"]
 
-  - path: "/api/v1/member/user"
+  - path: "/api/v1/account/user"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:user"]
 
-  - path: "/api/v1/member/user/:id"
+  - path: "/api/v1/account/user/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:user"]
 
-  - path: "/api/v1/member/user/:id"
+  - path: "/api/v1/account/user/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
     actions: ["update:user"]
 
-  - path: "/api/v1/member/user/:id"
+  - path: "/api/v1/account/user/:id"
     method: "DELETE"
     roles: ["ADMIN"]
     actions: ["delete:user"]
@@ -69,25 +69,25 @@ auth:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
-  - path: "/api/v1/member//staff"
+  - path: "/api/v1/account//staff"
     method: "POST"
-  - path: "/api/v1/member/staff"
+  - path: "/api/v1/account/staff"
     method: "GET"
-  - path: "/api/v1/member/staff/*"
+  - path: "/api/v1/account/staff/*"
     method: "GET"
-  - path: "/api/v1/member/staff/*"
+  - path: "/api/v1/account/staff/*"
     method: "PUT"
-  - path: "/api/v1/member/staff/:id"
+  - path: "/api/v1/account/staff/:id"
     method: "DELETE"
-  - path: "/api/v1/member//user"
+  - path: "/api/v1/account//user"
     method: "POST"
-  - path: "/api/v1/member/user"
+  - path: "/api/v1/account/user"
     method: "GET"
-  - path: "/api/v1/member/user/*"
+  - path: "/api/v1/account/user/*"
     method: "GET"
-  - path: "/api/v1/member/user/*"
+  - path: "/api/v1/account/user/*"
     method: "PUT"
-  - path: "/api/v1/member/user/:id"
+  - path: "/api/v1/account/user/:id"
     method: "DELETE"
 
 database:
