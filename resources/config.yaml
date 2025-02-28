@@ -1,6 +1,6 @@
 app:
-  name: "microservice-name"
-  port: 8080
+  name: "staff-service-api"
+  port: 8082
   version: "1.0.0"
   env: "dev"
 
@@ -14,53 +14,53 @@ auth:
   cacheUrl: "redis:6379"
   resources:
   # Staff endpoints
-  - path: "/api/v1/staff"
+  - path: "/api/v1/member/staff"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
     actions: ["create:staff"]
 
-  - path: "/api/v1/staff"
+  - path: "/api/v1/member/staff"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:staff"]
 
-  - path: "/api/v1/staff/:id"
+  - path: "/api/v1/member/staff/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:staff"]
 
-  - path: "/api/v1/staff/:id"
+  - path: "/api/v1/member/staff/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
     actions: ["update:staff"]
 
-  - path: "/api/v1/staff/:id"
+  - path: "/api/v1/member/staff/:id"
     method: "DELETE"
     roles: ["ADMIN"]
     actions: ["delete:staff"]
 
   # User endpoints
-  - path: "/api/v1/user"
+  - path: "/api/v1/member/user"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
     actions: ["create:user"]
 
-  - path: "/api/v1/user"
+  - path: "/api/v1/member/user"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:user"]
 
-  - path: "/api/v1/user/:id"
+  - path: "/api/v1/member/user/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
     actions: ["read:user"]
 
-  - path: "/api/v1/user/:id"
+  - path: "/api/v1/member/user/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
     actions: ["update:user"]
 
-  - path: "/api/v1/user/:id"
+  - path: "/api/v1/member/user/:id"
     method: "DELETE"
     roles: ["ADMIN"]
     actions: ["delete:user"]
@@ -69,25 +69,25 @@ auth:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
-  - path: "/api/v1/staff"
+  - path: "/api/v1/member//staff"
     method: "POST"
-  - path: "/api/v1/staff"
+  - path: "/api/v1/member/staff"
     method: "GET"
-  - path: "/api/v1/staff/*"
+  - path: "/api/v1/member/staff/*"
     method: "GET"
-  - path: "/api/v1/staff/*"
+  - path: "/api/v1/member/staff/*"
     method: "PUT"
-  - path: "/api/v1/staff/:id"
+  - path: "/api/v1/member/staff/:id"
     method: "DELETE"
-  - path: "/api/v1/staff/:id/user"
+  - path: "/api/v1/member//user"
     method: "POST"
-  - path: "/api/v1/staff/:id/user"
+  - path: "/api/v1/member/user"
     method: "GET"
-  - path: "/api/v1/staff/:id/user/:userId"
+  - path: "/api/v1/member/user/*"
     method: "GET"
-  - path: "/api/v1/staff/:id/user/:userId"
+  - path: "/api/v1/member/user/*"
     method: "PUT"
-  - path: "/api/v1/staff/:id/user/:userId"
+  - path: "/api/v1/member/user/:id"
     method: "DELETE"
 
 database:
