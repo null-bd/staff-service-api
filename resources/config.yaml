@@ -14,80 +14,80 @@ auth:
   cacheUrl: "redis:6379"
   resources:
   # Staff endpoints
-  - path: "/api/v1/account/staff"
+  - path: "/api/v1/account/staffs"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
-    actions: ["create:staff"]
+    actions: ["create:staffs"]
 
-  - path: "/api/v1/account/staff"
+  - path: "/api/v1/account/staffs"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:staff"]
+    actions: ["read:staffs"]
 
-  - path: "/api/v1/account/staff/:id"
+  - path: "/api/v1/account/staffs/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:staff"]
+    actions: ["read:staffs"]
 
-  - path: "/api/v1/account/staff/:id"
+  - path: "/api/v1/account/staffs/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
-    actions: ["update:staff"]
+    actions: ["update:staffs"]
 
-  - path: "/api/v1/account/staff/:id"
+  - path: "/api/v1/account/staffs/:id"
     method: "DELETE"
     roles: ["ADMIN"]
-    actions: ["delete:staff"]
+    actions: ["delete:staffs"]
 
   # User endpoints
-  - path: "/api/v1/account/user"
+  - path: "/api/v1/account/users"
     method: "POST"
     roles: ["ADMIN", "ORG_CREATOR"]
-    actions: ["create:user"]
+    actions: ["create:users"]
 
-  - path: "/api/v1/account/user"
+  - path: "/api/v1/account/users"
     method: "GET"  
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:user"]
+    actions: ["read:users"]
 
-  - path: "/api/v1/account/user/:id"
+  - path: "/api/v1/account/users/:id"
     method: "GET"
     roles: ["ADMIN", "ORG_ADMIN", "USER"]
-    actions: ["read:user"]
+    actions: ["read:users"]
 
-  - path: "/api/v1/account/user/:id"
+  - path: "/api/v1/account/users/:id"
     method: "PUT"
     roles: ["ADMIN", "ORG_ADMIN"] 
-    actions: ["update:user"]
+    actions: ["update:users"]
 
-  - path: "/api/v1/account/user/:id"
+  - path: "/api/v1/account/users/:id"
     method: "DELETE"
     roles: ["ADMIN"]
-    actions: ["delete:user"]
+    actions: ["delete:users"]
 
   publicPaths:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
-  - path: "/api/v1/account//staff"
+  - path: "/api/v1/account//staffs"
     method: "POST"
-  - path: "/api/v1/account/staff"
+  - path: "/api/v1/account/staffs"
     method: "GET"
-  - path: "/api/v1/account/staff/*"
+  - path: "/api/v1/account/staffs/*"
     method: "GET"
-  - path: "/api/v1/account/staff/*"
+  - path: "/api/v1/account/staffs/*"
     method: "PUT"
-  - path: "/api/v1/account/staff/:id"
+  - path: "/api/v1/account/staffs/:id"
     method: "DELETE"
-  - path: "/api/v1/account//user"
+  - path: "/api/v1/account//users"
     method: "POST"
-  - path: "/api/v1/account/user"
+  - path: "/api/v1/account/users"
     method: "GET"
-  - path: "/api/v1/account/user/*"
+  - path: "/api/v1/account/users/*"
     method: "GET"
-  - path: "/api/v1/account/user/*"
+  - path: "/api/v1/account/users/*"
     method: "PUT"
-  - path: "/api/v1/account/user/:id"
+  - path: "/api/v1/account/users/*"
     method: "DELETE"
 
 database:
