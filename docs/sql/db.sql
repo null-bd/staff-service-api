@@ -66,4 +66,3 @@ CREATE INDEX staffs_organization_id_idx ON staffs(organization_id);
 CREATE INDEX users_branch_id_idx ON users(branch_id);
 CREATE INDEX users_organization_id_idx ON users(organization_id);
 
-
