@@ -11,14 +11,21 @@ CREATE TABLE staff (
     status staff_status NOT NULL,
     type staff_type NOT NULL,
     specialties TEXT[],  
-    departments JSONB,   
-    schedule JSONB,      
+    departments_Id UUID NOT NULL,
+    departments_role TEXT[],
+    departments_isprimary BOOLEAN,   
+    schedule_type VARCHAR(50) NOT NULL,
+    schedule_shifts TEXT[],     
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20) NOT NULL,
     date_of_birth DATE NOT NULL,
     gender VARCHAR(10) NOT NULL,
     address TEXT NOT NULL,       
     metadata JSONB DEFAULT '{}'::JSONB,      
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    deleted_at TIMESTAMP WITH TIME ZONE
+    UNIQUE(branch_id, code)
 );
+
+
