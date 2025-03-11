@@ -7,7 +7,7 @@ CREATE TABLE staffs (
     organization_id UUID NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    staff_code VARCHAR(50) NOT NULL UNIQUE,
+    code VARCHAR(50) NOT NULL UNIQUE,
     status staff_status NOT NULL,
     type staff_type NOT NULL,
     specialties TEXT[],  
@@ -37,7 +37,7 @@ CREATE TABLE users (
     organization_id UUID NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    user_code VARCHAR(50) NOT NULL UNIQUE,
+    code VARCHAR(50) NOT NULL UNIQUE,
     status user_status NOT NULL,
     type user_type NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -47,13 +47,7 @@ CREATE TABLE users (
     address TEXT NOT NULL,  
     emergencycontact_name VARCHAR(100) NOT NULL,
     emergencycontact_phone VARCHAR(20) NOT NULL,
-    emergencycontact_relationship VARCHAR(100) NOT NULL,
-    healthhistory_condition TEXT[],
-    healthhistory_diagnosis TEXT[],
-    healthhistory_date DATE[],
-    consultanthistory_staffId UUID[],
-    consultanthistory_startdate DATE[], 
-    consultanthistory_enddate DATE[],    
+    emergencycontact_relationship VARCHAR(100) NOT NULL,  
     metadata JSONB DEFAULT '{}'::JSONB,      
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -65,5 +59,3 @@ CREATE INDEX staffs_branch_id_idx ON staffs(branch_id);
 CREATE INDEX staffs_organization_id_idx ON staffs(organization_id);
 CREATE INDEX users_branch_id_idx ON users(branch_id);
 CREATE INDEX users_organization_id_idx ON users(organization_id);
-
-
