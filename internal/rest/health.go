@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/null-bd/logger"
-	"github.com/null-bd/microservice-name/internal/health"
+	"github.com/null-bd/staff-service-api/internal/health"
 )
 
 // region Definition

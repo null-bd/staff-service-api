@@ -95,7 +95,7 @@ database:
   port: 5432
   user: "postgres"
   password: "postgres"
-  dbname: "microservice-template"
+  dbname: "staff-service"
   sslmode: "disable"
   max_conns: 10
   timeout: 30

@@ -3,7 +3,7 @@ package rest
 import (
 	"net/http"
 
-	"github.com/null-bd/microservice-name/internal/errors"
+	"github.com/null-bd/staff-service-api/internal/errors"
 
 	"github.com/gin-gonic/gin"
 )

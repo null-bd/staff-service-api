@@ -1,4 +1,4 @@
-module github.com/null-bd/microservice-name
+module github.com/null-bd/staff-service-api
 
 go 1.23.4
 
