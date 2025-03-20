@@ -81,7 +81,7 @@ func (s *RepositoryTestSuite) createSchema(ctx context.Context) error {
 			metadata JSONB DEFAULT '{}'::JSONB,      
 			created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 			updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-			deleted_at TIMESTAMP WITH TIME ZONE
+			deleted_at TIMESTAMP WITH TIME ZONE,
 			UNIQUE(branch_id, code)
 		);
 
@@ -107,7 +107,7 @@ func (s *RepositoryTestSuite) createSchema(ctx context.Context) error {
 			metadata JSONB DEFAULT '{}'::JSONB,      
 			created_at TIMESTAMP WITH TIME ZONE NOT NULL,
 			updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-			deleted_at TIMESTAMP WITH TIME ZONE
+			deleted_at TIMESTAMP WITH TIME ZONE,
 			UNIQUE(branch_id, code)
 		);
 
@@ -141,19 +141,19 @@ func (s *RepositoryTestSuite) TestCreate() {
 	ctx := context.Background()
 	now := time.Now().UTC()
 
-	dept := &Staff{
+	staff := &Staff{
 		ID:             uuid.New().String(),
 		BranchID:       uuid.New().String(),
 		OrganizationID: uuid.New().String(),
 		FirstName:      "Test FirstName",
 		LastName:       "Test LastName",
 		Code:           "TEST001",
-		StaffType:      "medical",
-		Status:         "active",
-		Speciality:     []string{"speciality1", "speciality2"},
+		StaffType:      "doctor",
+		Status:         "inactive",
+		Specialities:   []string{"speciality1", "speciality2"},
 		Departments: Departments{
-			DepartmentID: "departmentID",
-			Role:         "role",
+			DepartmentID: "Test departmentID",
+			Role:         "Test role",
 			IsPrimary:    true,
 		},
 		Schedule: Schedule{
@@ -163,13 +163,20 @@ func (s *RepositoryTestSuite) TestCreate() {
 		Email:       "Test Mail",
 		Phone:       "1234567890",
 		DateOfBirth: "1990-01-01",
-
+		Gender:      "Test gender",
+		Address: Address{
+			Street:  "Test street",
+			City:    "Test city",
+			State:   "Test state",
+			Country: "Test country",
+			ZipCode: "123456",
+		},
 		CreatedAt: now.Format(time.RFC3339),
 		UpdatedAt: now.Format(time.RFC3339),
 	}
 
 	// Act
-	result, err := s.repo.Create(ctx, dept)
+	result, err := s.repo.Create(ctx, staff)
 
 	// Assert
 	assert.NoError(s.T(), err)
@@ -178,10 +185,9 @@ func (s *RepositoryTestSuite) TestCreate() {
 
 	// Verify in database
 	var count int
-	err = s.tc.Pool.QueryRow(ctx, "SELECT COUNT(*) FROM departments WHERE id = $1", dept.ID).Scan(&count)
+	err = s.tc.Pool.QueryRow(ctx, "SELECT COUNT(*) FROM staffs WHERE id = $1", staff.ID).Scan(&count)
 	assert.NoError(s.T(), err)
 	assert.Equal(s.T(), 1, count)
-	_, err = s.repo.Create(ctx, dept)
+	_, err = s.repo.Create(ctx, staff)
 	assert.Error(s.T(), err)
-
 }

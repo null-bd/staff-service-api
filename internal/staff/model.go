@@ -9,7 +9,7 @@ type Staff struct {
 	Code           string
 	StaffType      string
 	Status         string
-	Speciality     []string
+	Specialities   []string
 	Departments    Departments
 	Schedule       Schedule
 	Email          string
@@ -17,7 +17,7 @@ type Staff struct {
 	DateOfBirth    string
 	Gender         string
 	Address        Address
-	Metadata       string
+	Metadata       map[string]interface{}
 	CreatedAt      string
 	UpdatedAt      string
 }
