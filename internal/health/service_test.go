@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/null-bd/microservice-name/internal/errors"
+	"github.com/null-bd/staff-service-api/internal/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

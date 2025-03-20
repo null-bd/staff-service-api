@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/null-bd/logger"
-	"github.com/null-bd/microservice-name/internal/user"
+	"github.com/null-bd/staff-service-api/internal/user"
 )
 
 type IUserHandler interface {

@@ -2,7 +2,7 @@ package health
 
 import (
 	"github.com/null-bd/logger"
-	"github.com/null-bd/microservice-name/internal/errors"
+	"github.com/null-bd/staff-service-api/internal/errors"
 )
 
 // region Definition

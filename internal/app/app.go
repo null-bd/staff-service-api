@@ -4,12 +4,12 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/null-bd/logger"
-	"github.com/null-bd/microservice-name/config"
+	"github.com/null-bd/staff-service-api/config"
 
-	"github.com/null-bd/microservice-name/internal/health"
-	"github.com/null-bd/microservice-name/internal/rest"
-	"github.com/null-bd/microservice-name/internal/staff"
-	"github.com/null-bd/microservice-name/internal/user"
+	"github.com/null-bd/staff-service-api/internal/health"
+	"github.com/null-bd/staff-service-api/internal/rest"
+	"github.com/null-bd/staff-service-api/internal/staff"
+	"github.com/null-bd/staff-service-api/internal/user"
 )
 
 type Application struct {

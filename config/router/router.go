@@ -11,8 +11,8 @@ import (
 	"github.com/null-bd/authn/pkg/auth"
 	"github.com/null-bd/logger"
 
-	"github.com/null-bd/microservice-name/config"
-	"github.com/null-bd/microservice-name/internal/rest"
+	"github.com/null-bd/staff-service-api/config"
+	"github.com/null-bd/staff-service-api/internal/rest"
 )
 
 type Router struct {

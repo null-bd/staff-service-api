@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/null-bd/logger"
-	"github.com/null-bd/microservice-name/config"
-	"github.com/null-bd/microservice-name/config/database"
-	"github.com/null-bd/microservice-name/config/router"
-	"github.com/null-bd/microservice-name/internal/app"
+	"github.com/null-bd/staff-service-api/config"
+	"github.com/null-bd/staff-service-api/config/database"
+	"github.com/null-bd/staff-service-api/config/router"
+	"github.com/null-bd/staff-service-api/internal/app"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package staff
 import (
 	"testing"
 
-	"github.com/null-bd/microservice-name/internal/testutil"
+	"github.com/null-bd/staff-service-api/internal/testutil"
 	"github.com/stretchr/testify/suite"
 )
 

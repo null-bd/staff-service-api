@@ -3,7 +3,7 @@ package app
 // import (
 // 	"testing"
 
-// 	"github.com/null-bd/microservice-name/config"
+// 	"github.com/null-bd/staff-service-api/config"
 
 // 	"github.com/pashagolub/pgxmock"
 // 	"github.com/stretchr/testify/assert"
