@@ -38,21 +38,21 @@ const (
 	    INSERT INTO staffs (
 			id, branch_id, organization_id, first_name, last_name, code, status, type, specialties, 
 			departments_Id, departments_role, departments_isprimary, schedule_type, schedule_shifts, 
-			email, phone, date_of_birth, gender, address,
-			metadata, created_at, updated_at
+			email, phone, date_of_birth, gender, address_street, address_city, address_state, address_country,
+			address_zipcode, metadata, created_at, updated_at
 		) VALUES (
 			$1, $2, $3, $4, $5, $6, 
-			$7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21
+			$7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $25
 		) RETURNING id, created_at`
 
-	getDeptByCodeQuery = `
+	getStaffByIDQuery = `
 		SELECT 
-		id, branch_id, organization_id, first_name, last_name, code, status, type, specialties, 
+			id, branch_id, organization_id, first_name, last_name, code, status, type, specialties, 
 			departments_Id, departments_role, departments_isprimary, schedule_type, schedule_shifts, 
-			email, phone, date_of_birth, gender, address,
-			metadata, created_at, updated_at
+			email, phone, date_of_birth, gender, address_street, address_city, address_state, address_country,
+			address_zipcode, metadata, created_at, updated_at
 		FROM staffs
-		WHERE code = $1 AND deleted_at IS NULL`
+		WHERE id = $1 AND deleted_at IS NULL`
 )
 
 func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, error) {
@@ -79,7 +79,11 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 		&staff.Phone,
 		&staff.DateOfBirth,
 		&staff.Gender,
-		&staff.Address,
+		&staff.Address.Street,
+		&staff.Address.City,
+		&staff.Address.State,
+		&staff.Address.Country,
+		&staff.Address.ZipCode,
 		&staff.Metadata,
 		now.Format(time.RFC3339),
 	)
@@ -108,7 +112,7 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 
 	var createdAt, updatedAt time.Time
 
-	err := r.db.QueryRow(ctx, getDeptByCodeQuery, id).Scan(
+	err := r.db.QueryRow(ctx, getStaffByIDQuery, id).Scan(
 		&staff.ID,
 		&staff.BranchID,
 		&staff.OrganizationID,
@@ -127,7 +131,11 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 		&staff.Phone,
 		&staff.DateOfBirth,
 		&staff.Gender,
-		&staff.Address,
+		&staff.Address.Street,
+		&staff.Address.City,
+		&staff.Address.State,
+		&staff.Address.Country,
+		&staff.Address.ZipCode,
 		&staff.Metadata,
 		&createdAt,
 		&updatedAt,
@@ -143,6 +151,6 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 	staff.CreatedAt = createdAt.Format(time.RFC3339)
 	staff.UpdatedAt = updatedAt.Format(time.RFC3339)
 
-	r.log.Debug("repository : GetByID : exit", logger.Fields{"department": staff})
+	r.log.Debug("repository : GetByID : exit", logger.Fields{"staff": staff})
 	return staff, nil
 }

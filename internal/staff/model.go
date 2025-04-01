@@ -24,7 +24,7 @@ type Staff struct {
 
 type Departments struct {
 	DepartmentID string
-	Role         string
+	Role         []string
 	IsPrimary    bool
 }
 
