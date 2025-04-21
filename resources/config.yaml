@@ -69,7 +69,7 @@ auth:
   - path: "/health"
     method: "GET"
   # Temporary public paths until auth is implemented
-  - path: "/api/v1/account//staffs"
+  - path: "/api/v1/account/staffs"
     method: "POST"
   - path: "/api/v1/account/staffs"
     method: "GET"

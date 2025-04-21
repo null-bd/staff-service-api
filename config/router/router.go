@@ -103,12 +103,12 @@ func (r *Router) Run() error {
 }
 
 func setupAPIRoutes(router *gin.Engine, staffHandler rest.IStaffHandler, userHandler rest.IUserHandler, resourceMatcher *authn.ResourceMatcher) {
-	//v1 := router.Group("/api/v1")
+	v1 := router.Group("/api/v1/account")
 	{
-		//domains := v1.Group("/staffs")
+		staffs := v1.Group("/staffs")
 		{
 			// Domain endpoints
-			//domains.POST("", staffHandler.CreateDomain)
+			staffs.POST("", staffHandler.CreateStaff)
 		}
 	}
 }

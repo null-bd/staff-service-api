@@ -20,6 +20,7 @@ type Staff struct {
 	Metadata       map[string]interface{}
 	CreatedAt      string
 	UpdatedAt      string
+	DeletedAt      string
 }
 
 type Departments struct {

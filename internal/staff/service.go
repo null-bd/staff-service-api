@@ -28,7 +28,7 @@ func NewStaffService(repo IStaffRepository, logger logger.Logger) IStaffService 
 func (s *staffService) CreateStaff(ctx context.Context, staff *Staff) (*Staff, error) {
 	s.log.Info("service : CreateStaff : begin", nil)
 
-	existingStaff, err := s.repo.GetbyID(ctx, staff.ID)
+	existingStaff, err := s.repo.GetByCode(ctx, staff.Code)
 	if err != nil {
 		return nil, err
 	}
@@ -41,6 +41,8 @@ func (s *staffService) CreateStaff(ctx context.Context, staff *Staff) (*Staff, e
 	}
 
 	staff.ID = uuid.New().String()
+	staff.BranchID = uuid.New().String()
+	staff.OrganizationID = uuid.New().String()
 	staff.Status = "inactive"
 
 	createdStaff, err := s.repo.Create(ctx, staff)
@@ -48,6 +50,6 @@ func (s *staffService) CreateStaff(ctx context.Context, staff *Staff) (*Staff, e
 		return nil, err
 	}
 
-	s.log.Info("service: CreatedStaff: exit", nil)
+	s.log.Info("service : CreateStaff : exit", nil)
 	return createdStaff, nil
 }

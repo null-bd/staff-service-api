@@ -16,7 +16,8 @@ import (
 type (
 	IStaffRepository interface {
 		Create(ctx context.Context, staff *Staff) (*Staff, error)
-		GetbyID(ctx context.Context, id string) (*Staff, error)
+		GetByID(ctx context.Context, id string) (*Staff, error)
+		GetByCode(ctx context.Context, code string) (*Staff, error)
 	}
 
 	staffRepository struct {
@@ -53,6 +54,15 @@ const (
 			address_zipcode, metadata, created_at, updated_at
 		FROM staffs
 		WHERE id = $1 AND deleted_at IS NULL`
+
+	getStaffByCodeQuery = `
+		SELECT 
+			id, branch_id, organization_id, first_name, last_name, code, status, type, specialties, 
+			departments_Id, departments_role, departments_isprimary, schedule_type, schedule_shifts, 
+			email, phone, date_of_birth, gender, address_street, address_city, address_state, address_country,
+			address_zipcode, metadata, created_at, updated_at
+		FROM staffs
+		WHERE code = $1 AND deleted_at IS NULL`
 )
 
 func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, error) {
@@ -98,7 +108,7 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 		return nil, errors.New(errors.ErrDatabaseOperation, "database error", err)
 	}
 
-	createdStaff, err := r.GetbyID(ctx, staff.ID)
+	createdStaff, err := r.GetByID(ctx, staff.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -107,8 +117,8 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 	return createdStaff, nil
 }
 
-func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error) {
-	r.log.Debug("repository : GetbyID : begin", nil)
+func (r *staffRepository) GetByID(ctx context.Context, id string) (*Staff, error) {
+	r.log.Debug("repository : GetByID : begin", nil)
 
 	staff := &Staff{
 		Departments: Departments{},
@@ -160,5 +170,60 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 	staff.UpdatedAt = updatedAt.Format(time.RFC3339)
 
 	r.log.Debug("repository : GetByID : exit", logger.Fields{"staff": staff})
+	return staff, nil
+}
+
+func (r *staffRepository) GetByCode(ctx context.Context, code string) (*Staff, error) {
+	r.log.Debug("repository : GetByCode : begin", nil)
+
+	staff := &Staff{
+		Departments: Departments{},
+		Schedule:    Schedule{},
+		Address:     Address{},
+		Metadata:    make(map[string]interface{}),
+	}
+
+	var createdAt, updatedAt, dob time.Time
+
+	err := r.db.QueryRow(ctx, getStaffByCodeQuery, code).Scan(
+		&staff.ID,
+		&staff.BranchID,
+		&staff.OrganizationID,
+		&staff.FirstName,
+		&staff.LastName,
+		&staff.Code,
+		&staff.Status,
+		&staff.StaffType,
+		&staff.Specialities,
+		&staff.Departments.DepartmentID,
+		&staff.Departments.Role,
+		&staff.Departments.IsPrimary,
+		&staff.Schedule.Type,
+		&staff.Schedule.Shifts,
+		&staff.Email,
+		&staff.Phone,
+		&dob,
+		&staff.Gender,
+		&staff.Address.Street,
+		&staff.Address.City,
+		&staff.Address.State,
+		&staff.Address.Country,
+		&staff.Address.ZipCode,
+		&staff.Metadata,
+		&createdAt,
+		&updatedAt,
+	)
+	if err != nil {
+		if stderr.Is(err, pgx.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, errors.New(errors.ErrDatabaseOperation, "database error", err)
+	}
+
+	staff.DateOfBirth = dob.Format("2006-01-02")
+	staff.CreatedAt = createdAt.Format(time.RFC3339)
+	staff.UpdatedAt = updatedAt.Format(time.RFC3339)
+
+	r.log.Debug("repository : GetByCode : exit", nil)
 	return staff, nil
 }
