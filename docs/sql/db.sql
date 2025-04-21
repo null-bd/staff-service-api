@@ -18,7 +18,7 @@ CREATE TABLE staffs (
     schedule_shifts TEXT[],     
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20) NOT NULL,
-    date_of_birth VARCHAR(20) NOT NULL,
+    date_of_birth DATE NOT NULL,
     gender VARCHAR(50) NOT NULL,
     address_street VARCHAR(100) NOT NULL, 
     address_city VARCHAR(50) NOT NULL,

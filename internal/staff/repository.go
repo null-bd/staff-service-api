@@ -59,8 +59,14 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 	r.log.Debug("repository : Create : begin", nil)
 	now := time.Now().UTC()
 
+	layout := "2006-01-02"
+	dob, err := time.Parse(layout, staff.DateOfBirth)
+	if err != nil {
+		return nil, errors.New(errors.ErrInvalidInput, "invalid date format", err)
+	}
+
 	// Execute query
-	_, err := r.db.Exec(ctx, createStaffQuery,
+	_, err = r.db.Exec(ctx, createStaffQuery,
 		&staff.ID,
 		&staff.BranchID,
 		&staff.OrganizationID,
@@ -77,7 +83,7 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 		&staff.Schedule.Shifts,
 		&staff.Email,
 		&staff.Phone,
-		&staff.DateOfBirth,
+		dob.Format("2006-01-02"),
 		&staff.Gender,
 		&staff.Address.Street,
 		&staff.Address.City,
@@ -87,6 +93,7 @@ func (r *staffRepository) Create(ctx context.Context, staff *Staff) (*Staff, err
 		&staff.Metadata,
 		now.Format(time.RFC3339),
 	)
+
 	if err != nil {
 		return nil, errors.New(errors.ErrDatabaseOperation, "database error", err)
 	}
@@ -110,7 +117,7 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 		Metadata:    make(map[string]interface{}),
 	}
 
-	var createdAt, updatedAt time.Time
+	var createdAt, updatedAt, dob time.Time
 
 	err := r.db.QueryRow(ctx, getStaffByIDQuery, id).Scan(
 		&staff.ID,
@@ -129,7 +136,7 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 		&staff.Schedule.Shifts,
 		&staff.Email,
 		&staff.Phone,
-		&staff.DateOfBirth,
+		&dob,
 		&staff.Gender,
 		&staff.Address.Street,
 		&staff.Address.City,
@@ -148,6 +155,7 @@ func (r *staffRepository) GetbyID(ctx context.Context, id string) (*Staff, error
 		return nil, errors.New(errors.ErrDatabaseOperation, "database error", err)
 	}
 
+	staff.DateOfBirth = dob.Format("2006-01-02")
 	staff.CreatedAt = createdAt.Format(time.RFC3339)
 	staff.UpdatedAt = updatedAt.Format(time.RFC3339)
 

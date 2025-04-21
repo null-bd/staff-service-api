@@ -75,7 +75,7 @@ func (s *RepositoryTestSuite) createSchema(ctx context.Context) error {
 			schedule_shifts TEXT[],     
 			email VARCHAR(255) UNIQUE NOT NULL,
 			phone VARCHAR(20) NOT NULL,
-			date_of_birth VARCHAR(20) NOT NULL,
+			date_of_birth DATE NOT NULL,
 			gender VARCHAR(50) NOT NULL,
 			address_street VARCHAR(100) NOT NULL, 
 			address_city VARCHAR(50) NOT NULL,
@@ -166,7 +166,7 @@ func (s *RepositoryTestSuite) TestCreate() {
 		},
 		Email:       "staff@hospital.com",
 		Phone:       "1234567890",
-		DateOfBirth: "1990-01-01",
+		DateOfBirth: "2000-01-01",
 		Gender:      "Test gender",
 		Address: Address{
 			Street:  "Test street",
