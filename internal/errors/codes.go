@@ -14,4 +14,5 @@ const (
 	ErrCacheConnection    ErrorCode = "STAFFAPI_303"
 	ErrDatabaseOperation  ErrorCode = "STAFFAPI_304"
 	ErrStaffNotFound      ErrorCode = "STAFFAPI_305"
+	ErrInvalidInput       ErrorCode = "STAFFAPI_306"
 )

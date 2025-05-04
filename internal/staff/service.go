@@ -1,10 +1,16 @@
 package staff
 
 import (
+	"context"
+	stderr "errors"
+
+	"github.com/google/uuid"
 	"github.com/null-bd/logger"
+	"github.com/null-bd/staff-service-api/internal/errors"
 )
 
 type IStaffService interface {
+	CreateStaff(ctx context.Context, staff *Staff) (*Staff, error)
 }
 
 type staffService struct {
@@ -17,4 +23,33 @@ func NewStaffService(repo IStaffRepository, logger logger.Logger) IStaffService 
 		repo: repo,
 		log:  logger,
 	}
+}
+
+func (s *staffService) CreateStaff(ctx context.Context, staff *Staff) (*Staff, error) {
+	s.log.Info("service : CreateStaff : begin", nil)
+
+	existingStaff, err := s.repo.GetByCode(ctx, staff.Code)
+	if err != nil {
+		return nil, err
+	}
+	if existingStaff != nil {
+		return nil, &errors.AppError{
+			Code:    errors.ErrStaffExists,
+			Message: "staff with this code already exists",
+			Err:     stderr.New("organization with this code already exists"),
+		}
+	}
+
+	staff.ID = uuid.New().String()
+	staff.BranchID = uuid.New().String()
+	staff.OrganizationID = uuid.New().String()
+	staff.Status = "inactive"
+
+	createdStaff, err := s.repo.Create(ctx, staff)
+	if err != nil {
+		return nil, err
+	}
+
+	s.log.Info("service : CreateStaff : exit", nil)
+	return createdStaff, nil
 }

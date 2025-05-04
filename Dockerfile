@@ -31,7 +31,7 @@ COPY --from=builder /app/resources ./resources
 ENV APP_ENV=production
 
 # Expose port
-EXPOSE 8080
+EXPOSE 8082
 
 # Run the application
 CMD ["./main"]
